@@ -1,7 +1,8 @@
 ﻿using System;
 using UnityEngine;
 
-public class Cards
+[CreateAssetMenu(fileName = "CardObject",menuName ="Card", order = 0)]
+public class Card : ScriptableObject
 {
     public String Name;
     public Int16 Attack;
