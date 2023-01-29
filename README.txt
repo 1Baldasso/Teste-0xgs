@@ -1,0 +1,1 @@
+﻿# Squid Game Squad Card Game
