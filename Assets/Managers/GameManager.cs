@@ -8,6 +8,7 @@ namespace Managers
     {
         public event Action OnTurnStart;
         public event Action ChangePlayer;
+        public bool ActivateControls;
         public static GameManager Instance;
         private void Awake()
         {
@@ -15,7 +16,17 @@ namespace Managers
         }
         public void Start()
         {
-            OnTurnStart?.Invoke();
+            CardScript.OnCardPlay += () => ChangePlayer?.Invoke();
+            CardScript.OnCardPlay += () => OnTurnStart?.Invoke();
+            ActivateControls = true;
+        }
+        public void Update()
+        {
+            if(Input.GetKey(KeyCode.Escape))
+            {
+                GameObject.FindGameObjectWithTag("Pause Menu").GetComponent<Canvas>().enabled = true;
+                ActivateControls = false;
+            }
         }
     }
 }

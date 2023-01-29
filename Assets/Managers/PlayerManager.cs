@@ -1,40 +1,24 @@
-﻿using UnityEngine;
+﻿using System;
+using UnityEngine;
 namespace Managers
 {
     public class PlayerManager : MonoBehaviour
     {
+        public static PlayerManager Instance;
         public enum PlayerEnum
         {
             Player,
             Enemy
+                
         }
-
+        private void Awake()
+        {
+            Instance = this;
+        }
         private void Start()
         {
             Managers.GameManager.Instance.OnTurnStart += OnTurnStart;
             Managers.GameManager.Instance.ChangePlayer += ChangeGameView;
-        }
-        private void OnDestroy()
-        {
-            Managers.GameManager.Instance.OnTurnStart -= OnTurnStart;
-        }
-
-        struct FieldPosition
-        {
-            public Vector3 HandPosition;
-            public Vector3 BoardPosition;
-        }
-        [SerializeField] private GameObject CardPrefab;
-        private PlayerEnum ActivePlayer;
-        private FieldPosition FieldPositionDown;
-        private FieldPosition FieldPositionUp;
-        private GameObject PlayerHand;
-        private GameObject EnemyHand;
-        private GameObject PlayerBoard;
-        private GameObject EnemyBoard;
-
-        private void OnTurnStart()
-        {
             ActivePlayer = PlayerEnum.Player;
             PlayerHand = GameObject.FindGameObjectWithTag("Player Hand");
             PlayerBoard = GameObject.FindGameObjectWithTag("Player Board");
@@ -46,6 +30,39 @@ namespace Managers
             FieldPositionUp.BoardPosition = EnemyBoard.transform.position;
             DrawPlayerCard();
             DrawEnemyCard();
+        }
+        private void OnDestroy()
+        {
+            Managers.GameManager.Instance.OnTurnStart -= OnTurnStart;
+            Managers.GameManager.Instance.ChangePlayer -= ChangeGameView;
+        }
+
+        struct FieldPosition
+        {
+            public Vector3 HandPosition;
+            public Vector3 BoardPosition;
+        }
+        [SerializeField] private GameObject CardPrefab;
+        public PlayerEnum ActivePlayer { get; private set; }
+        private FieldPosition FieldPositionDown;
+        private FieldPosition FieldPositionUp;
+        private GameObject PlayerHand;
+        private GameObject EnemyHand;
+        private GameObject PlayerBoard;
+        private GameObject EnemyBoard;
+        public event Action PlayerChanged;
+
+        private void OnTurnStart()
+        {
+            switch(ActivePlayer)
+            {
+                case PlayerEnum.Player:
+                    DrawPlayerCard();
+                    break;
+                case PlayerEnum.Enemy:
+                    DrawEnemyCard();
+                    break;
+            }
         }
 
         private void DrawPlayerCard()
@@ -63,19 +80,32 @@ namespace Managers
             enemyCardScript.CreateCard();
         }
 
-
-        private void ChangeGameView()
+        public void ChangeGameView()
         {
-            if(ActivePlayer == PlayerEnum.Player)
+            InvertPositions(ActivePlayer);
+        }
+
+        private void InvertPositions(PlayerEnum playerEnum)
+        {
+            switch(playerEnum)
             {
-                PlayerHand.transform.SetPositionAndRotation(FieldPositionUp.HandPosition,Quaternion.identity);
-                EnemyHand.transform.SetPositionAndRotation(FieldPositionDown.HandPosition,Quaternion.identity);
+                case PlayerEnum.Enemy:
+                    PlayerHand.transform.SetPositionAndRotation(FieldPositionDown.HandPosition, Quaternion.identity);
+                    PlayerBoard.transform.SetPositionAndRotation(FieldPositionDown.BoardPosition, Quaternion.identity);
+                    EnemyHand.transform.SetPositionAndRotation(FieldPositionUp.HandPosition, Quaternion.identity);
+                    EnemyBoard.transform.SetPositionAndRotation(FieldPositionUp.BoardPosition, Quaternion.identity);
+                    ActivePlayer = PlayerEnum.Player;
+
+                    break;
+                case PlayerEnum.Player:
+                    PlayerHand.transform.SetPositionAndRotation(FieldPositionUp.HandPosition, Quaternion.identity);
+                    PlayerBoard.transform.SetPositionAndRotation(FieldPositionUp.BoardPosition, Quaternion.identity);
+                    EnemyHand.transform.SetPositionAndRotation(FieldPositionDown.HandPosition, Quaternion.identity);
+                    EnemyBoard.transform.SetPositionAndRotation(FieldPositionDown.BoardPosition, Quaternion.identity);
+                    ActivePlayer = PlayerEnum.Enemy;
+                    break;
             }
-            if(ActivePlayer == PlayerEnum.Enemy)
-            {
-                PlayerHand.transform.SetPositionAndRotation(FieldPositionDown.HandPosition,Quaternion.identity);
-                EnemyHand.transform.SetPositionAndRotation(FieldPositionUp.HandPosition,Quaternion.identity);
-            }
+            PlayerChanged?.Invoke();
         }
     }
 }

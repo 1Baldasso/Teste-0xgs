@@ -9,6 +9,10 @@ TagManager:
   - Defense
   - Player Hand
   - Enemy Hand
+  - Player Board
+  - Enemy Board
+  - Card Played
+  - Pause Menu
   layers:
   - Default
   - TransparentFX

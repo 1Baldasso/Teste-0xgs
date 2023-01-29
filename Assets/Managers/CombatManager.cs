@@ -29,12 +29,19 @@ namespace Managers
         public event Action<GameObject> OnUnitDie;
 
         //Getting a CardScript as Instances not to change ScriptableObject Properties.
-        public CardScript AttackingUnit { get; set; }
-        public CardScript DefendingUnit { get; set; }
+        private CardScript AttackingUnit { get; set; }
+        private CardScript DefendingUnit { get; set; }
         public static CombatManager Instance;
         private void Awake()
         {
             Instance = this;
+        }
+
+        public void DeclareCombat(CardScript attacking, CardScript defending)
+        {
+            AttackingUnit= attacking; 
+            DefendingUnit= defending;
+            CombatResolve();
         }
 
         public void CombatResolve()
@@ -45,6 +52,8 @@ namespace Managers
                 OnUnitDie?.Invoke(DefendingUnit.KillCard());
             if (AttackingUnit.Defense <= 0)
                 OnUnitDie?.Invoke(AttackingUnit.KillCard());
+            AttackingUnit = null;
+            DefendingUnit = null;
         }
     }
 }
