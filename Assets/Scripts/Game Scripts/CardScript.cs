@@ -1,4 +1,5 @@
-﻿using Managers;
+﻿using Assets.Scripts.Handlers;
+using Managers;
 using System;
 using System.Linq;
 using TMPro;
@@ -53,6 +54,7 @@ public class CardScript : MonoBehaviour
             if(collider!=null)
             {
                 cardObject = collider.gameObject;
+                ArrowHandler.Instance.CreateArrow(gameObject.transform.position);
             }
             else
             {
