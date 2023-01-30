@@ -33,6 +33,7 @@ namespace Managers
         private void OnUnitDie(GameObject obj)
         {
             obj.GetComponent<ParticleSystem>().Play();
+            gameObject.GetComponent<AudioSource>().Play();
         }
     }
 }

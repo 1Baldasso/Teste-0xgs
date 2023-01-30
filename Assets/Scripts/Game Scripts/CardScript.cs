@@ -39,8 +39,13 @@ public class CardScript : MonoBehaviour
     private void ChangeCardView()
     {
         var activePlayer = PlayerManager.Instance.ActivePlayer.ToString();
-        gameObject.GetComponentsInChildren<RawImage>().FirstOrDefault(x => x.name == "Card Back").enabled = !gameObject.transform.parent.CompareTag(activePlayer + " Hand") && !gameObject.transform.parent.tag.Contains("Board");
-
+        bool enemyCard = !gameObject.transform.parent.CompareTag(activePlayer + " Hand") && !gameObject.transform.parent.tag.Contains("Board");
+        gameObject.GetComponentsInChildren<RawImage>().FirstOrDefault(x => x.name == "Card Back").enabled = enemyCard;
+        var texts = gameObject.GetComponentsInChildren<TextMeshProUGUI>();
+        foreach (var text in texts)
+        {
+            text.enabled = !enemyCard;
+        }
     }
 
     private GameObject cardObject;
@@ -50,6 +55,7 @@ public class CardScript : MonoBehaviour
         Vector3 mousePosition = Camera.main.ScreenToWorldPoint(Input.mousePosition);
         if(Input.GetMouseButtonDown(0))
         {
+            targetCard = null;
             Collider2D collider = Physics2D.OverlapPointAll(mousePosition).FirstOrDefault(x => x.gameObject == this.gameObject);
             if(collider!=null)
             {
