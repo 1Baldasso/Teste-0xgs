@@ -97,7 +97,7 @@ public class CardScript : MonoBehaviour
         Defense = Card.Defense;
         gameObject.GetComponent<Canvas>().worldCamera = Camera.main;
         gameObject.GetComponentsInChildren<RawImage>()
-            .FirstOrDefault(x=>x.gameObject.CompareTag("CardImage")).texture = Card.Image;
+            .FirstOrDefault(x=>x.gameObject.CompareTag("Card Image")).texture = Card.Image;
         gameObject.GetComponentsInChildren<TextMeshProUGUI>()
             .FirstOrDefault(x => x.gameObject.CompareTag("Attack")).text = this.Attack.ToString();
         gameObject.GetComponentsInChildren<TextMeshProUGUI>()

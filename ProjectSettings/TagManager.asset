@@ -4,27 +4,19 @@
 TagManager:
   serializedVersion: 2
   tags:
-  - Attack
-  - CardImage
-  - Defense
-  - Player Hand
-  - Enemy Hand
-  - Player Board
-  - Enemy Board
-  - Card Played
-  - Pause Menu
+  - Shootable
   layers:
   - Default
   - TransparentFX
   - Ignore Raycast
-  - Background
+  - 
   - Water
   - UI
   - 
   - 
-  - 
-  - 
-  - 
+  - Lighting
+  - Ground
+  - Postprocessing
   - 
   - 
   - 
@@ -47,6 +39,9 @@ TagManager:
   - 
   - 
   m_SortingLayers:
+  - name: Fire
+    uniqueID: 3804908061
+    locked: 0
   - name: Default
     uniqueID: 0
     locked: 0

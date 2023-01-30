@@ -27,6 +27,7 @@ namespace Managers
 
         //This event will trigger Animations
         public event Action<GameObject> OnUnitDie;
+        public event Action<GameObject, GameObject> OnCombatDeclared;
 
         //Getting a CardScript as Instances not to change ScriptableObject Properties.
         private CardScript AttackingUnit { get; set; }
@@ -41,6 +42,7 @@ namespace Managers
         {
             AttackingUnit= attacking; 
             DefendingUnit= defending;
+            OnCombatDeclared?.Invoke(attacking.gameObject,defending.gameObject);
             CombatResolve();
         }
 
