@@ -12,7 +12,7 @@ Segundo o documento de requisitos, cada personagem deve ter um ataque e uma defe
 
 As artes utilizadas para cada carta foram feitos pelo autor através de pixel art pelo site [Pixilart - Free online pixel art drawing tool](https://www.pixilart.com/draw#)
 
-![Circle Soldier Pixel Art](The%20Squid%20Card%20Game%2097e46903f4004df992e7195e2b5b4503/Untitled.png)
+![Circle Soldier Pixel Art](https://user-images.githubusercontent.com/82400557/215758806-ff2c06a6-bf3e-4ee4-9dd1-4300ba5152eb.png)
 
 Circle Soldier Pixel Art
 
@@ -22,7 +22,7 @@ Todas os assets restantes vieram de páginas de imagens grátis como ShutterStoc
 
 Como um protótipo, a mecânica de compra e criação de decks foi feita utilizando um objeto do Unity que continha um array para as cartas no deck do jogador e do adversário. As cartas não tem custo de mana pois a implementação do custo de mana diminiu a fluidez desse protótipo.
 
-![Objeto responsável pela definição das cartas no baralho de cada jogador](The%20Squid%20Card%20Game%2097e46903f4004df992e7195e2b5b4503/Untitled%201.png)
+![Objeto responsável pela definição das cartas no baralho de cada jogador](https://user-images.githubusercontent.com/82400557/215758923-74b79681-c672-4e7d-b3ae-b7d607131eca.png)
 
 Objeto responsável pela definição das cartas no baralho de cada jogador
 
@@ -34,13 +34,15 @@ A implementação da mecânica PVP Local muda de jogador a cada carta jogada, de
 
 A utilização de Scriptable Objects como containeres de dados para as cartas facilita a sua criação e a forma como os dados são inseridos em cada objeto dinâmicamente através do próprio editor, de forma que mesmo sem conhecimento do código que roda por trás, um PM possa mudar os dados dos objetos e ver sua resposta dinâmicamento no jogo local.
 
-![Instância do Scriptable Object “Card”. Responsável pela definição dos dados de cada uma das cartas.](The%20Squid%20Card%20Game%2097e46903f4004df992e7195e2b5b4503/Untitled%202.png)
+![Instância do Scriptable Object “Card”. Responsável pela definição dos dados de cada uma das cartas.](https://user-images.githubusercontent.com/82400557/215759249-2c5de428-6279-4857-8ca2-905018c00912.png)
+
 
 Instância do Scriptable Object “Card”. Responsável pela definição dos dados de cada uma das cartas.
 
 A separação da lógica de cada parte essencial do jogo em diferentes Managers facilita a manutenção e o teste de cada uma das funcionalidades separadamente, como também delega funções específicas e expões dados e eventos relacionados apenas aos interessados pelos seus atributos.
 
-![Untitled](The%20Squid%20Card%20Game%2097e46903f4004df992e7195e2b5b4503/Untitled%203.png)
+![Untitled 3](https://user-images.githubusercontent.com/82400557/215759389-efc1ef90-98da-4b7a-886d-51155b06f398.png)
+
 
 A técnica EDD (Event Driven Development) possibilita a independência dos códigos e diminui a quantidade de código refatorado em caso de mudança de regras.
 
@@ -48,7 +50,8 @@ A técnica EDD (Event Driven Development) possibilita a independência dos códi
 
 Todas as ações do jogo tem respostas visuais às interações ocorridas, de forma que o jogador saiba intuitivamente as ações que pode tomar com os elementos do jogo e de resposta, como arrastar a carta para jogar, e declarar o ataque de uma carta à outra.
 
-![Indicador de ataque de intenção de combate](The%20Squid%20Card%20Game%2097e46903f4004df992e7195e2b5b4503/Untitled%204.png)
+![Indicador de ataque de intenção de combate](https://user-images.githubusercontent.com/82400557/215759470-d8c979a7-1ca2-4569-bfc2-870f83479ec1.png)
+
 
 Indicador de ataque de intenção de combate
 
